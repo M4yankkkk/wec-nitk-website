@@ -1,0 +1,10 @@
+# Ignore the local node modules
+node_modules
+
+# Ignore Strapi cache and build artifacts
+build
+.strapi-cache
+
+# Ignore OS-specific files
+.DS_Store
+*.log

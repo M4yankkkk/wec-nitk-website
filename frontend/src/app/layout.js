@@ -1,9 +1,9 @@
+// DO NOT add "use client" to this file
 import "./globals.css";
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
-import Script from "next/script"
+import Script from "next/script";
+import { Providers } from "./providers"; // Import your new client component
 
-
+// This metadata WILL work now
 export const metadata = {
   metadataBase: new URL('https://webclub.nitk.ac.in'),
   title: "WebClub NITK",
@@ -26,36 +26,34 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-
   return (
     <html lang="en">
-		<head>
-			<meta
-				name="viewport"
-				content="width=device-width, height=device-height, initial-scale=1"
-			/>
-			
-			<Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.ANALYTICS_GTAG}`} />
-			<Script>
-				{
-					`
-					window.dataLayer = window.dataLayer || [];
-					function gtag(){dataLayer.push(arguments);}
-					gtag('js', new Date());
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1"
+        />
+        
+        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.ANALYTICS_GTAG}`} />
+        <Script id="google-analytics">
+          {
+            `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-					gtag('config', '${process.env.ANALYTICS_GTAG}');
-					`
-				}
-			</Script>
-		</head>
+            gtag('config', '${process.env.ANALYTICS_GTAG}');
+            `
+          }
+        </Script>
+      </head>
 
-		<body className={"bg-white dark no-scrollbar "}>
-			<Navbar />
-			<main>
-				{children}
-			</main>
-			<Footer />
-		</body>
+      {/* The <body> tag is now inside providers.js.
+        We just render the Providers component here.
+      */}
+      <Providers>
+        {children}
+      </Providers>
     </html>
   );
 }
